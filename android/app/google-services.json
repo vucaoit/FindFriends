@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "884481985226",
+    "project_id": "findfriend-9d0e6",
+    "storage_bucket": "findfriend-9d0e6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:884481985226:android:9abe6a907f0d94059a4233",
+        "android_client_info": {
+          "package_name": "com.locationchecking"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "884481985226-267pl5daad2688mfiu12tjqlu0353aj1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.locationchecking",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "884481985226-hilrphg3o3uc1to9b30cr5vqbshb1bg5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.locationchecking",
+            "certificate_hash": "2c10be63078c1f72024be1cf3bcd5e0103b812ee"
+          }
+        },
+        {
+          "client_id": "884481985226-f1s678ai01uk10tlsllarb6jrvhv0d62.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUsa2U0AudO2kbxuqUvY0x0eDUoKVoGjA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "884481985226-f1s678ai01uk10tlsllarb6jrvhv0d62.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
