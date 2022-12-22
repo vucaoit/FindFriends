@@ -6,6 +6,8 @@
     "jsx": "react",
     "jsx": "react",
     "jsx": "react",
+    "ts": "react",
+    "tsx": "react"
     /* Visit https://aka.ms/tsconfig.json to read more about this file */
     /* Completeness */
     "skipLibCheck": true /* Skip type checking all .d.ts files. */

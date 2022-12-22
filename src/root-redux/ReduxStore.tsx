@@ -1,18 +1,18 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { configureStore } from '@reduxjs/toolkit';
-import { persistReducer, persistStore } from 'redux-persist';
+import { PersistConfig, persistReducer, persistStore } from 'redux-persist';
 import autoMergeLevel2 from 'redux-persist/es/stateReconciler/autoMergeLevel2';
 import { reducers, RootState } from './RootState';
 import logger from 'redux-logger';
 import { combineEpics, createEpicMiddleware } from 'redux-observable';
 
-const persistConfig = {
+const persistConfig: PersistConfig = {
     key: 'root',
-    version: 0,
+    version: 1,
     storage: AsyncStorage,
-    blacklist: [],
-    whitelist: ['Root'],
     stateReconciler: autoMergeLevel2,
+    blacklist: [],
+    whitelist: ['root']
 };
 
 const finalReducer = persistReducer<RootState, any>(persistConfig, reducers);
@@ -25,9 +25,11 @@ export const store = configureStore({
     reducer: finalReducer,
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
-            // immutableCheck: false,
+            immutableCheck: false,
             serializableCheck: false
-        }).concat(logger).concat(epicMiddleware)
+        })
+            // .concat(logger)
+            .concat(epicMiddleware)
 });
 
 epicMiddleware.run(epic);

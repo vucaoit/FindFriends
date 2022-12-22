@@ -14,24 +14,6 @@ const Tab = createBottomTabNavigator();
 
 export type MainTabNavigationType = 'Home' | 'Find' | 'User' | 'Notification';
 
-const TestScreen = ({ route, navigation }: { route: any, navigation: any }) => {
-    return (
-        <View
-            style={{
-                justifyContent: 'center',
-                alignItems: 'center',
-                flex: 1,
-                backgroundColor: 'red'
-            }}
-        >
-            <Text>
-                Hello
-            </Text>
-        </View>
-
-    );
-};
-
 export const MainTabNavigation = ({ navigation, route }: { route: any, navigation: any }) => {
 
     return (

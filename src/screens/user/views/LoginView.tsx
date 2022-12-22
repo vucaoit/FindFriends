@@ -2,11 +2,12 @@ import { GoogleSigninButton, User } from "@react-native-google-signin/google-sig
 import React, { useState } from "react"
 import { Text, View } from "react-native"
 import { useDispatch, useSelector } from "react-redux";
-import { signIn } from "../../../generals/firebase/user";
+import { getInfoByEmail, signIn, updateUserInfo } from "../../../generals/firebase/userFirebase";
 import { updateUserActionRedux } from "../redux/UserReduxAction";
 import { selectUsersRedux } from "../redux/UserReduxSelector";
+import { UserModel } from "../../../services/user/UserModel";
 interface LoginviewProps {
-    user: User
+    user: UserModel
 }
 const Loginview = (props: LoginviewProps) => {
     const [isSigninInProgress, setIsSigninInProgress] = useState(false);
@@ -21,7 +22,7 @@ const Loginview = (props: LoginviewProps) => {
                     setIsSigninInProgress(true)
                     signIn().then(user => {
                         if (user) {
-                            dispatch(updateUserActionRedux(user))
+                            dispatch(updateUserActionRedux({ user: user }))
                             setIsSigninInProgress(false)
                         }
                     }).finally(() => {

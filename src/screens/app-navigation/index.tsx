@@ -6,12 +6,6 @@ import { MainTabNavigation } from './MainTabNavigation';
 
 const Stack = createNativeStackNavigator();
 
-const CloneScreen = () => (
-  <View style={{ justifyContent: 'center', alignContent: 'center' }}>
-    <Text>Detail</Text>
-  </View>
-);
-
 export type NavigationScreenType =
   | 'MainTabNavigation'
   | 'Cart'
