@@ -1,15 +1,3 @@
-/* eslint-disable no-trailing-spaces */
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable curly */
-/* eslint-disable @typescript-eslint/no-shadow */
-/* eslint-disable no-catch-shadow */
-/* eslint-disable react/self-closing-comp */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable quotes */
-/* eslint-disable react-native/no-inline-styles */
-/* eslint-disable prettier/prettier */
-/* eslint-disable react/react-in-jsx-scope */
-
 import React, { useState, useEffect } from 'react';
 import auth from '@react-native-firebase/auth';
 import { View, Text, SafeAreaView, Button, PermissionsAndroid, Alert, FlatList } from 'react-native';
@@ -24,6 +12,11 @@ import {
 import Geolocation from 'react-native-geolocation-service';
 import firestore from '@react-native-firebase/firestore';
 import database from '@react-native-firebase/database';
+import { NavigationContainer } from '@react-navigation/native';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import { store, persistor } from './src/root-redux/ReduxStore';
+import { AppNavigation } from './src/screens/app-navigation';
 // import Firebase from './src/environment/config';
 GoogleSignin.configure({
   scopes: ['https://www.googleapis.com/auth/drive.readonly'], // what API you want to access on behalf of the user, default is email and profile
@@ -100,11 +93,11 @@ const App = () => {
       console.log('res is:', res);
       if (res) {
         Geolocation.getCurrentPosition(
-          position => {
+          async position => {
             // console.log(position);
             setLocation(position);
             if (location) {
-              firestore()
+              await firestore()
                 .collection('location')
                 .doc(user?.user.email)
                 .set({
@@ -161,8 +154,8 @@ const App = () => {
     // console.log(userTableReference)
   }, []);
   return (
-    <SafeAreaView>
-      <View style={{ paddingVertical: 20 }}>
+    // <SafeAreaView>
+    /* <View style={{ paddingVertical: 20 }}>
         <Text style={{ fontSize: 20 }}>Hello {(user) ? <Text style={{ fontWeight: 'bold' }}>{user.user.name}</Text> : "null"}</Text>
         <Button title='Login' onPress={signIn} />
       </View>
@@ -181,17 +174,32 @@ const App = () => {
               return <View style={{ padding: 10, margin: 5, borderWidth: 1, borderColor: 'black' }}>
                 <Text>email : {item.email}</Text>
                 <Text>latitude:{item.data.latitude}</Text>
-                <Text>longtitude:{item.data.longtitude}</Text>
-                <Text>Distance: {getDistance({ latitude: location.coords.latitude, longitude: location.coords.longitude },
-                  { latitude: item.data.latitude, longitude: item.data.longtitude })}</Text>
+                <Text>longtitude:{item.data.longitude}</Text>
+                <Text>Distance: {distanceToString(getDistance({ latitude: location.coords.latitude, longitude: location.coords.longitude },
+                  { latitude: item.data.latitude, longitude: item.data.longitude }))}</Text>
               </View>
             }}
             keyExtractor={(item) => `${item.email}`}
           />
         </View>
-      </View> : null}
-    </SafeAreaView>
+      </View> : null} */
+
+    /* </SafeAreaView> */
+    <Provider store={store}>
+      <PersistGate persistor={persistor}>
+        <AppNavigation />
+      </PersistGate>
+    </Provider>
   );
 };
-
+function distanceToString(dis: number): string {
+  let value = '';
+  if (dis > 1000) {
+    value = new Intl.NumberFormat().format(Number((dis / 1000).toFixed(2))) + ' Km'
+  }
+  else {
+    value = new Intl.NumberFormat().format((dis)) + ' m'
+  }
+  return value
+}
 export default App;
