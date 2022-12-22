@@ -25,6 +25,7 @@ export const FindScreen = ({ navigation, route }: { route: any, navigation: any 
             <View style={{ width: '100%', height: 50, justifyContent: 'center', alignItems: 'center' }}>
                 <Pressable style={{ width: '100%', backgroundColor: "#0EBFE9", height: 50, alignItems: 'center', justifyContent: 'center' }}
                     onPress={() => {
+                        setLoading(true);
                         getLocation((location: Location) => {
                             setLocation(location)
                             if (user.user) {
@@ -33,7 +34,6 @@ export const FindScreen = ({ navigation, route }: { route: any, navigation: any 
                                 })
                             }
                         })
-                        setLoading(true);
                         let temp = scanner(user, (user: UserModel) => dispatch(updateUserActionRedux(user)));
                         temp.then(dat => {
                             if (dat) {
