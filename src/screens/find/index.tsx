@@ -15,7 +15,6 @@ export const FindScreen = ({ navigation, route }: { route: any, navigation: any 
     const dispatch = useDispatch()
     const [data, setData] = useState<PersonModel[]>()
     const [loading, setLoading] = useState(false)
-    const [location, setLocation] = useState<Location>({ latitude: 0, longitude: 0 })
     return (
         <View
             style={{
@@ -25,15 +24,15 @@ export const FindScreen = ({ navigation, route }: { route: any, navigation: any 
             <View style={{ width: '100%', height: 50, justifyContent: 'center', alignItems: 'center' }}>
                 <Pressable style={{ width: '100%', backgroundColor: "#0EBFE9", height: 50, alignItems: 'center', justifyContent: 'center' }}
                     onPress={() => {
-                        setLoading(true);
                         getLocation((location: Location) => {
-                            setLocation(location)
                             if (user.user) {
+                                user.location = location
                                 updateFieldByEmail(user.user.user.email, {
                                     location: location
                                 })
                             }
                         })
+                        setLoading(true);
                         let temp = scanner(user, (user: UserModel) => dispatch(updateUserActionRedux(user)));
                         temp.then(dat => {
                             if (dat) {
@@ -51,11 +50,10 @@ export const FindScreen = ({ navigation, route }: { route: any, navigation: any 
                     <FlatList
                         data={data}
                         renderItem={({ item }) => {
-                            console.log(item)
-                            return <PersonItemView person={item} myLocation={location!} />
+                            return <PersonItemView person={item} myLocation={user.location} />
                         }
                         }
-                        keyExtractor={(item) => item.email}
+                        keyExtractor={(item, index) => `${item.email ? item.email : index}`}
                     />}
             </View>
         </View>

@@ -6,17 +6,21 @@ interface UserReduxState {
     user: UserModel
 }
 const initState: UserReduxState = {
-    user: {}
+    user: {
+        user: null,
+        gender: null,
+        location: null,
+        name: null,
+        photo: null
+    }
 };
 export const UserReducer = (state = initState, action: UserActionType): UserReduxState => {
 
     switch (action.type) {
         case 'UPDATE_USER_ACTION_TYPE':
-            console.log('asdasdasdasd')
             state.user = action.payload
             return { ...state }
         default:
-            console.log('ahihi')    
             return { ...state };
     }
 };

@@ -17,16 +17,19 @@ const Profileview = (props: ProfilerViewProps) => {
         <ScrollView style={{ flex: 1 }}>
             <View style={{ flex: 1 }}>
                 <View style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                    <View style={{ paddingVertical: 20, alignItems: 'center' }}>
-                        <Image style={{ width: 100, height: 100, borderRadius: 50 }} source={{ uri: props.user.user!.user.photo! }} />
-                        <Text style={{ fontSize: 20, fontWeight: '500', color: 'white' }}>{props.user.user!.user.name}</Text>
-                        <Text style={{ color: 'white' }}>{props.user.user!.user.email}</Text>
-                        <View style={{ marginTop: 10, flexDirection: 'row' }}>
-                            <Text style={{ color: 'white' }}>Following: <Text style={{ fontWeight: 'bold' }}>{20}</Text></Text>
-                            <View style={{ borderRightWidth: 1, borderRightColor: '#eeeeee', marginHorizontal: 10 }}></View>
-                            <Text style={{ color: 'white' }}>Follower: <Text style={{ fontWeight: 'bold' }}>{300}</Text></Text>
+                    {(props.user.user !== null && props.user.photo) ?
+                        <View style={{ paddingVertical: 20, alignItems: 'center' }}>
+                            <Image style={{ width: 100, height: 100, borderRadius: 50 }} source={{ uri: props.user.photo }} />
+                            <Text style={{ fontSize: 20, fontWeight: '500', color: 'white' }}>{props.user.user!.user.name}</Text>
+                            <Text style={{ color: 'white' }}>{props.user.user!.user.email}</Text>
+                            <View style={{ marginTop: 10, flexDirection: 'row' }}>
+                                <Text style={{ color: 'white' }}>Following: <Text style={{ fontWeight: 'bold' }}>{20}</Text></Text>
+                                <View style={{ borderRightWidth: 1, borderRightColor: '#eeeeee', marginHorizontal: 10 }}></View>
+                                <Text style={{ color: 'white' }}>Follower: <Text style={{ fontWeight: 'bold' }}>{300}</Text></Text>
+                            </View>
                         </View>
-                    </View>
+                        :
+                        <></>}
                 </View>
                 <View style={{ backgroundColor: 'rgba(255, 255, 255, 0.7)', borderTopLeftRadius: borderValue, borderTopRightRadius: borderValue, height: 200 }}>
                     <View style={{}}>
@@ -47,7 +50,13 @@ const Profileview = (props: ProfilerViewProps) => {
                     </View>
                 </View>
                 <View style={{ height: 50, justifyContent: 'center' }}>
-                    <Pressable style={{ backgroundColor: 'rgba(87, 138, 255, 0.5)', alignItems: 'center', justifyContent: 'center', flex: 1 }} onPress={() => signOut(() => dispatch(updateUserActionRedux({})))}>
+                    <Pressable style={{ backgroundColor: 'rgba(87, 138, 255, 0.5)', alignItems: 'center', justifyContent: 'center', flex: 1 }} onPress={() => signOut(() => dispatch(updateUserActionRedux({
+                        user: null,
+                        gender: null,
+                        location: null,
+                        name: null,
+                        photo: null
+                    })))}>
                         <Text style={{ color: 'white' }}>Logout</Text>
                     </Pressable>
                 </View>
